@@ -5,6 +5,11 @@ using System.Collections.Generic;
 using Algorytm.Marshalling;
 using System.Linq;
 
+// Ważne: kąt w całym projekcie jest rozumieny jako A w tym wzorze: 360deg = A*PI
+//  Czyli A= 0.5 to kąt prosty.
+//  Kąt także jest mierzony wbrew wskazówek zegara.
+
+
 namespace Algorithm
 {
     class Program
@@ -41,13 +46,16 @@ namespace Algorithm
                     0.25,
                 };
 
+            Console.WriteLine(Point.CheckIfSetIsDividedPropperly(points_input.GetRange(0,4), targets_input[0]));
+            Console.WriteLine(Point.CheckIfSetIsDividedPropperly(points_input.GetRange(4,4), 0.375));
+
             // Tutaj obie listy z góry są przetwarzane w format który przyjmuje sieć neuronowa.
             var points = Point.Aggregate(points_input, PointsAtInput);
             var targets = targets_input.Select(item => new double[] { item }).ToList();
 
 
             // Tolerancja poniżej której sieć ma przestać się uczyć.
-            double tolerance = 0.01f;
+            double targetError = 0.01f;
             // W obrębie tej pętli dochodzi do treningu:
             while(true)
             {
@@ -58,7 +66,7 @@ namespace Algorithm
                 // Dla celów samego wyświetlania.
                 Console.WriteLine(prediction);
                 // Sprawdzanie czy przewidziana wartość nie mieści się w granicach tolerancji.
-                if (Math.Abs(prediction - targets[0][0]) < tolerance)
+                if (Math.Abs(prediction - targets[0][0]) < targetError)
                     break;
                 // W tych 2 pętlach dochodzi do właściwego treningu.
                 // Ta pętla jest odpowiedzialna za iterację.

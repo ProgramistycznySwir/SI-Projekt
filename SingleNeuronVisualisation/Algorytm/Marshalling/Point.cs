@@ -36,6 +36,25 @@ namespace Algorytm.Marshalling
             return result;
         }
 
+
+        public static bool CheckIfSetIsDividedPropperly(List<Point> points, double angle)
+        {
+            int leftHandCount = 0;
+            int rightHandCount = 0;
+            // For diagonal.
+            angle += 0.5;
+            // Point is here undersood as Vector2.
+            Point diagonal = new(Math.Cos(angle * Math.PI), Math.Sin(angle * Math.PI));
+
+            foreach (var point in points)
+                (diagonal.Dot(point) > 0 ? ref leftHandCount : ref rightHandCount) += 1;
+
+            return leftHandCount == rightHandCount;
+        }
+
+        public double Dot(Point other)
+            => (X * other.X) + (Y * other.Y);
+
         // Nie zwracajcie na to uwagi.
         private void Deconstruct(out double Item1, out double Item2)
             => (Item1, Item2) = (X, Y);
