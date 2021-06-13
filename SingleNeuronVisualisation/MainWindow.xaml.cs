@@ -24,5 +24,11 @@ namespace SingleNeuronVisualisation
         {
             InitializeComponent();
         }
+
+        private void ButtonGeneratePoints_Click(object sender, RoutedEventArgs e)
+        {
+            Point Random;
+
+        }
     }
 }

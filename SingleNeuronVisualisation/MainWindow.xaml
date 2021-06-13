@@ -5,19 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SingleNeuronVisualisation"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Learning algorithm of a single perceptron neuron" Height="450" Width="800" Background="#FF708090">
     <Grid>
         <TabControl HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="5,0,5,5">
-            <TabItem Header="Neuron">
+            <TabItem Header="Neuron" Background="#FF4682B4">
                 <Grid Background="#FFE5E5E5">
                     <Frame x:Name="frame" Source="/MVVM/View/Neuron.xaml" />
                     <!--<Page xmlns: Neuron />-->
                 </Grid>
             </TabItem>
-            <TabItem Header="Punkty">
-                <Grid Background="#FFE5E5E5"/>
+            <TabItem Header="Points" Background="#FF4682B4">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="13*"/>
+                        <ColumnDefinition Width="54*"/>
+                        <ColumnDefinition Width="54*"/>
+                        <ColumnDefinition Width="663*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="btnGp" Margin="0,0,23,381" Click="ButtonGeneratePoints_Click" Grid.ColumnSpan="3">Generate points</Button>
+                </Grid>
             </TabItem>
-            <TabItem Header="Wykresy">
+            <TabItem Header="Charts" Background="#FF4682B4">
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
         </TabControl>
