@@ -73,8 +73,8 @@ namespace MathCatalogue
         {
             var result = new Matrix(Rows, Cols, Raw);
             for (var r = 0; r < Rows; ++r)
-            for (var c = 0; c < Cols; ++c)
-                result[r, c] *= scalar;
+                for (var c = 0; c < Cols; ++c)
+                    result[r, c] *= scalar;
             return result;
         }
         public Matrix Product(Matrix other)

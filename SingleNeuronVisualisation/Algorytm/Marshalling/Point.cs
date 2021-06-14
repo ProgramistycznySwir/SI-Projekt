@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using static MathCatalogue.Random_Extensions;
 
-namespace Algorytm.Marshalling
+namespace Algorithm.Marshalling
 {
-    struct Point
+    public struct Point
     {
         public double X, Y;
         public Point(double x, double y)
@@ -56,7 +56,7 @@ namespace Algorytm.Marshalling
             => (X * other.X) + (Y * other.Y);
 
         // Nie zwracajcie na to uwagi.
-        private void Deconstruct(out double Item1, out double Item2)
+        public void Deconstruct(out double Item1, out double Item2)
             => (Item1, Item2) = (X, Y);
 
         
@@ -65,6 +65,8 @@ namespace Algorytm.Marshalling
         /// </summary>
         public static implicit operator Point((double, double) tuple)
             => new Point(tuple.Item1, tuple.Item2);
-        
+        //public static implicit operator (double, double)(Point point)
+        //    => (point.X, point.Y);
+
     }
 }

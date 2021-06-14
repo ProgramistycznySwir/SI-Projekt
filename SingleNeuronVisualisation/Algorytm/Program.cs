@@ -2,8 +2,9 @@
 using MathCatalogue;
 using MachineLearningCatalogue;
 using System.Collections.Generic;
-using Algorytm.Marshalling;
+using Algorithm.Marshalling;
 using System.Linq;
+using Algorithm.Data;
 
 // Ważne: kąt w całym projekcie jest rozumieny jako A w tym wzorze: 360deg = A*PI
 //  Czyli A= 0.5 to kąt prosty.
@@ -16,6 +17,31 @@ namespace Algorithm
     {
         static void Main(string[] args)
         {
+            const string filename = @"C:\USB SZTYK BEKAP 11-03-2021\Semestr4\Sztuczna Inteligencja\Projekt\Data\DataStructure.arff";
+            const string filename_test = @"test.arff";
+
+            MLData data = new(4);
+            // data.AddDataset(new Dataset(0.75, (-1,-1), (1,1), (1,0), (-1,0)));
+            // data.AddDataset(new Dataset(0.25, (0,1), (0.5,1), (1,0.5), (1,0)));
+
+            // data.SaveToFile(filename_test);
+
+            data = new(filename_test);
+            Console.WriteLine(data.Datasets_train[0]);
+            Console.WriteLine(data.Datasets_train[1]);
+            //data.datasets_test.Add();
+
+
+            //MLData data = new();
+            //data.LoadFromFile(filename);
+
+            //foreach (var dataset in data.datasets)
+            //    Console.WriteLine(dataset);
+
+        }
+
+        void SimpleTest()
+        {
             // HowToUse101:
 
             // Stała tak żeby nie się nie powtarzać.
@@ -27,27 +53,33 @@ namespace Algorithm
             //  - outputNodes to wyjście, czyli tylko 1,
             //  - activator to funkcja aktywacyjna, na razie zaimplementowane są 2 (aż nadto).
             SingleLayerNeuralNetwork network = new(
-                inputNodes: PointsAtInput * 2, 
-                hiddenNodes: 1, 
-                outputNodes: 1, 
+                inputNodes: PointsAtInput * 2,
+                hiddenNodes: 1,
+                outputNodes: 1,
                 activator: MachineLearningCatalogue.Activator.Sigmoid);
 
             // Tutaj tworzona jest lista punktów, jest to jedynie ze względów estetycznych, później ta lista jest
             //  przetwarzana w przyjazny sieci neuronowej format.
             List<Point> points_input = new()
-                {
-                    (-1, -1), (1, 1), (1, 0), (-1, 0),
-                    (0, 1), (0.5, 1), (1, 0.5), (1, 0),
-                };
+            {
+                (-1, -1),
+                (1, 1),
+                (1, 0),
+                (-1, 0),
+                (0, 1),
+                (0.5, 1),
+                (1, 0.5),
+                (1, 0),
+            };
             // Tutaj tworzona jest lista wartości docelowych.
             List<double> targets_input = new()
-                {
-                    0.75,
-                    0.25,
-                };
+            {
+                0.75,
+                0.25,
+            };
 
-            Console.WriteLine(Point.CheckIfSetIsDividedPropperly(points_input.GetRange(0,4), targets_input[0]));
-            Console.WriteLine(Point.CheckIfSetIsDividedPropperly(points_input.GetRange(4,4), 0.375));
+            Console.WriteLine(Point.CheckIfSetIsDividedPropperly(points_input.GetRange(0, 4), targets_input[0]));
+            Console.WriteLine(Point.CheckIfSetIsDividedPropperly(points_input.GetRange(4, 4), 0.375));
 
             // Tutaj obie listy z góry są przetwarzane w format który przyjmuje sieć neuronowa.
             var points = Point.Aggregate(points_input, PointsAtInput);
@@ -57,7 +89,7 @@ namespace Algorithm
             // Tolerancja poniżej której sieć ma przestać się uczyć.
             double targetError = 0.01f;
             // W obrębie tej pętli dochodzi do treningu:
-            while(true)
+            while (true)
             {
                 // Tutaj pobierana jest przewidywana wartość na potrzeby stwierdzenia trafności algorytmu.
                 //  To wszystko są operacje na macierzach, ale z racji, że macierz wyjściowa jest wymiarów 1x1 to można
@@ -75,7 +107,7 @@ namespace Algorithm
                     for (int ii = points.Count - 1; ii >= 0; ii--)
                         network.Train(points[ii], targets[ii]);
             }
-            
+
             // Wyświetlenie rezultatów:
             Console.WriteLine($"0: {network.Predict(points[0])}");
             Console.WriteLine($"1: {network.Predict(points[1])}");
