@@ -10,7 +10,11 @@
         <TabControl HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="5,0,5,5">
             <TabItem Header="Neuron" Background="#FF4682B4">
                 <Grid Background="#FFE5E5E5">
-                    <Frame x:Name="NeuronFrame" Source="/MVVM/View/Neuron.xaml" />
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="45*"/>
+                    </Grid.ColumnDefinitions>
+                    <Frame x:Name="NeuronFrame" Source="/MVVM/View/Neuron.xaml" Grid.ColumnSpan="2" />
                     <!--<Page xmlns: Neuron />-->
                 </Grid>
             </TabItem>
@@ -21,7 +25,12 @@
             </TabItem>
             <TabItem Header="Charts" Background="#FF4682B4">
                 <Grid Background="#FFE5E5E5">
-                    <!--<Frame x:Name="PointsFrame" Source="/MVVM/View/Charts.xaml" />-->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="33*"/>
+                        <ColumnDefinition Width="96*"/>
+                        <ColumnDefinition Width="263*"/>
+                    </Grid.ColumnDefinitions>
+                    <!--<Frame x:Name="ChartsFrame" Source="/MVVM/View/Charts.xaml" />-->
                 </Grid>
             </TabItem>
         </TabControl>
