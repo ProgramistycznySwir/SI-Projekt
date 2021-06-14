@@ -15,18 +15,12 @@
                 ssfsdr<LineBreak />
                 sdrs
             </TextBlock>
-            
+
             <TextBlock TextWrapping="Wrap" Height="164">
                 <Run Text="Scrolling is enabled when it is necessary. Resize the window, making it larger and smaller."/>
             </TextBlock>
             <Rectangle Fill="Red" Width="500" Height="500" Margin="491,335,-208,-50"/>
-            
+
         </Grid>
-        <!--<StackPanel VerticalAlignment="Top" HorizontalAlignment="Left">
-                <TextBlock TextWrapping="Wrap" Height="164">
-                    <Run Text="Scrolling is enabled when it is necessary. Resize the window, making it larger and smaller."/>
-                </TextBlock>
-                <Rectangle Fill="Red" Width="500" Height="500"/>
-            </StackPanel>-->
     </ScrollViewer>
 </Page>

@@ -13,22 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SingleNeuronVisualisation
+namespace SingleNeuronVisualisation.MVVM.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Logika interakcji dla klasy Points.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Points : Page
     {
-        public MainWindow()
+        public Points()
         {
             InitializeComponent();
         }
-
-        //private void ButtonGeneratePoints_Click(object sender, RoutedEventArgs e)
-        //{
-        //    Point Random;
-
-        //}
     }
 }

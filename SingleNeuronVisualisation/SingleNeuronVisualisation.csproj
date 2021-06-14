@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Algorytm\**" />
+    <EmbeddedResource Remove="Algorytm\**" />
+    <None Remove="Algorytm\**" />
+    <Page Remove="Algorytm\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Core\" />
     <Folder Include="Images\" />
     <Folder Include="MVVM\Model\" />

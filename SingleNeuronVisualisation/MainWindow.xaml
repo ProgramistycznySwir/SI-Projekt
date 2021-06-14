@@ -10,24 +10,19 @@
         <TabControl HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="5,0,5,5">
             <TabItem Header="Neuron" Background="#FF4682B4">
                 <Grid Background="#FFE5E5E5">
-                    <Frame x:Name="frame" Source="/MVVM/View/Neuron.xaml" />
+                    <Frame x:Name="NeuronFrame" Source="/MVVM/View/Neuron.xaml" />
                     <!--<Page xmlns: Neuron />-->
                 </Grid>
             </TabItem>
             <TabItem Header="Points" Background="#FF4682B4">
                 <Grid Background="#FFE5E5E5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="13*"/>
-                        <ColumnDefinition Width="54*"/>
-                        <ColumnDefinition Width="54*"/>
-                        <ColumnDefinition Width="663*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Button x:Name="btnGp" Margin="0,0,23,381" Click="ButtonGeneratePoints_Click" Grid.ColumnSpan="3">Generate points</Button>
+                    <Frame x:Name="PointsFrame" Source="/MVVM/View/Points.xaml" />
                 </Grid>
             </TabItem>
             <TabItem Header="Charts" Background="#FF4682B4">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <!--<Frame x:Name="PointsFrame" Source="/MVVM/View/Charts.xaml" />-->
+                </Grid>
             </TabItem>
         </TabControl>
 
