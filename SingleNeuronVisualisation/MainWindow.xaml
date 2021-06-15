@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="Learning algorithm of a single perceptron neuron" Height="450" Width="800" Background="#FF708090">
     <Grid>
-        <TabControl HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="5,0,5,5">
+        <TabControl
+            HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="5,0,5,5">
             <TabItem Header="Neuron" Background="#FF4682B4">
                 <Grid Background="#FFE5E5E5">
                     <Frame x:Name="NeuronFrame" Source="/MVVM/View/Neuron.xaml" />
@@ -25,6 +26,9 @@
                 </Grid>
             </TabItem>
         </TabControl>
-
+        <TextBlock
+            HorizontalAlignment="Right">
+            TEXT and more text
+        </TextBlock>
     </Grid>
 </Window>

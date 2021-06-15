@@ -1,0 +1,15 @@
+@relation angle
+
+@attribute point0X numeric
+@attribute point0Y numeric
+@attribute point1X numeric
+@attribute point1Y numeric
+@attribute point2X numeric
+@attribute point2Y numeric
+@attribute point3X numeric
+@attribute point3Y numeric
+@attribute angle numeric
+
+@data
+-1,-1,1,1,1,0,-1,0,0.75
+0,1,0.5,1,1,0.5,1,0,0.25

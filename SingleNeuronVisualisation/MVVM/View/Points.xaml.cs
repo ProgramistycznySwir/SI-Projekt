@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Algorithm;
 
 namespace SingleNeuronVisualisation.MVVM.View
 {
@@ -20,9 +21,27 @@ namespace SingleNeuronVisualisation.MVVM.View
     /// </summary>
     public partial class Points : Page
     {
+
         public Points()
         {
             InitializeComponent();
+            DataContext = new PointsDataContext(8);
+        }
+
+        private void Window_SizeChanged()
+        {
+            // calculates incorrect when window is maximized
+            PointsDisplay.Width;
+            VerticalLine.
+        }
+
+        public class PointsDataContext
+        {
+            public string StrokeLineWidth { get; set; }
+            public PointsDataContext(int width)
+            {
+                StrokeLineWidth = width.ToString();
+            }
         }
     }
 }

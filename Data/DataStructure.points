@@ -1,0 +1,4 @@
+# Comments are every line starting with # sign.
+# It has to be first char in the line, we have not written real-world parser
+
+# every line has structure: solution;(x, y);

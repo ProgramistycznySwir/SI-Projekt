@@ -14,21 +14,22 @@
             <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
 
-        <ScrollViewer Grid.Column="0"
-                      HorizontalScrollBarVisibility="Auto"
-                      VerticalScrollBarVisibility="Auto">
-            <Grid>               
-                <TextBlock FontSize="320">
-                    ssfsdr<LineBreak />
-                    sdrs
-                </TextBlock>
-
-                <TextBlock TextWrapping="Wrap" Height="164">
-                    <Run Text="Scrolling is enabled when it is necessary. Resize the window, making it larger and smaller."/>
-                </TextBlock>
-                <Rectangle Fill="Red" Width="500" Height="500" Margin="491,335,-208,-50"/>
-            </Grid>
-        </ScrollViewer>
+        <Canvas x:Name="PointsDisplay"
+                Grid.Column="0"
+                ClipToBounds="True">
+            <Line x:Name="VerticalLine"
+                  Stroke="Black"
+                  StrokeThickness="{Binding StrokeLineWidth}"
+                  HorizontalAlignment="Center"
+                  X1="0" Y1="0"
+                  X2="0" Y2="1500" />
+            <Line x:Name="HorizontalLine"
+                  Stroke="Black"
+                  StrokeThickness="{Binding StrokeLineWidth}"
+                  VerticalAlignment="Center"
+                  X1="0" Y1="0"
+                  X2="2000" Y2="0" />
+        </Canvas>
 
         <ListView Grid.Column="1" 
                   HorizontalAlignment="Right" 

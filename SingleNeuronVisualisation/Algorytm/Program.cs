@@ -200,7 +200,6 @@ namespace Algorithm
                 outputNodes: 1,
                 activator: MachineLearningCatalogue.Activator.Sigmoid);
 
-
             // Tutaj tworzone są zbiory danych.
             MLData data = new(4);
             data.AddDataset(new Dataset(
@@ -217,7 +216,6 @@ namespace Algorithm
             data.Datasets_train[1].CalculateSolution();
             Console.WriteLine(data.Datasets_train[1].Solution);
             return;
-
 
 
             // Tolerancja poniżej której sieć ma przestać się uczyć.
