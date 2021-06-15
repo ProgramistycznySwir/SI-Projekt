@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Data",
+    "\\SingleNeuronVisualisation"
   ],
-  "SelectedNode": "\\SingleNeuronVisualisation.sln",
+  "SelectedNode": "\\SingleNeuronVisualisation\\SingleNeuronVisualisation.sln",
   "PreviewInSolutionExplorer": false
 }

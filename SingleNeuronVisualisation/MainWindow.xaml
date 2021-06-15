@@ -20,7 +20,11 @@
             </TabItem>
             <TabItem Header="Points" Background="#FF4682B4">
                 <Grid Background="#FFE5E5E5">
-                    <Frame x:Name="PointsFrame" Source="/MVVM/View/Points.xaml" />
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="109*"/>
+                        <ColumnDefinition Width="675*"/>
+                    </Grid.ColumnDefinitions>
+                    <Frame x:Name="PointsFrame" Source="/MVVM/View/Points.xaml" Grid.ColumnSpan="2" />
                 </Grid>
             </TabItem>
             <TabItem Header="Charts" Background="#FF4682B4">
