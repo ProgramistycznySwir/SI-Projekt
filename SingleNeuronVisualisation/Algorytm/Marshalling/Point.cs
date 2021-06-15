@@ -5,16 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using static MathCatalogue.Random_Extensions;
 
-namespace Algorytm.Marshalling
+namespace Algorithm.Marshalling
 {
-    struct Point
+    public struct Point
     {
         public double X, Y;
         public Point(double x, double y)
             => (X, Y) = (x, y);
 
-        // Do szybkiego generowanie punktów.
-        public Point Random => new Point(CommonUseRNG.NextDouble(), CommonUseRNG.NextDouble());
+        /// <summary> Generates random point in range of -1 to 1. </summary>
+        public Point Random => new Point(CommonUseRNG.NextDouble()*2-1, CommonUseRNG.NextDouble()*2-1);
+
+        public double Lenght => Math.Sqrt(X*X + Y*Y);
+        public Point Normalized => this / Lenght;
 
         /// <summary>
         /// Tworzy listę tablic na potrzeby uczenia sieci neuronowej.
@@ -37,26 +40,12 @@ namespace Algorytm.Marshalling
         }
 
 
-        public static bool CheckIfSetIsDividedPropperly(List<Point> points, double angle)
-        {
-            int leftHandCount = 0;
-            int rightHandCount = 0;
-            // For diagonal.
-            angle += 0.5;
-            // Point is here undersood as Vector2.
-            Point diagonal = new(Math.Cos(angle * Math.PI), Math.Sin(angle * Math.PI));
-
-            foreach (var point in points)
-                (diagonal.Dot(point) > 0 ? ref leftHandCount : ref rightHandCount) += 1;
-
-            return leftHandCount == rightHandCount;
-        }
 
         public double Dot(Point other)
             => (X * other.X) + (Y * other.Y);
 
         // Nie zwracajcie na to uwagi.
-        private void Deconstruct(out double Item1, out double Item2)
+        public void Deconstruct(out double Item1, out double Item2)
             => (Item1, Item2) = (X, Y);
 
         
@@ -65,6 +54,12 @@ namespace Algorytm.Marshalling
         /// </summary>
         public static implicit operator Point((double, double) tuple)
             => new Point(tuple.Item1, tuple.Item2);
-        
+        //public static implicit operator (double, double)(Point point)
+        //    => (point.X, point.Y);
+
+        public static Point operator *(Point point, double scalar)
+            => new Point(point.X * scalar, point.Y * scalar);
+        public static Point operator /(Point point, double scalar)
+            => new Point(point.X / scalar, point.Y / scalar);
     }
 }
