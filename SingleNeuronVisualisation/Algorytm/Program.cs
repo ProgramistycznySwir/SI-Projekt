@@ -2,7 +2,7 @@
 using MathCatalogue;
 using MachineLearningCatalogue;
 using System.Collections.Generic;
-using Algorithm.Marshalling;
+using Algorithm;
 using System.Linq;
 using Algorithm.Data;
 

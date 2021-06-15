@@ -15,9 +15,9 @@ namespace Algorithm.Data
     {
         public double[] RawData { get; set; }
         public double[] PointsData => RawData[..^1];
-        public Point this[int index]
+        public Vector2 this[int index]
         {
-            get => new Point(RawData[2*index], RawData[2*index + 1]);
+            get => new Vector2(RawData[2*index], RawData[2*index + 1]);
             set => (RawData[2*index], RawData[2*index + 1]) = value;
         }
         public double Solution 
@@ -33,7 +33,7 @@ namespace Algorithm.Data
             rawPoints.CopyTo(RawData, 0);
             Solution = solution;
         }
-        public Dataset(IList<Point> points, double solution)
+        public Dataset(IList<Vector2> points, double solution)
         {
             RawData = new double[2 * points.Count + 1];
             for (int i = 0; i < points.Count; i++)
@@ -45,7 +45,7 @@ namespace Algorithm.Data
                 //(RawPoints[2 * i], RawPoints[2 * i + 1]) = points[i];
             Solution = solution;
         }
-        public Dataset(double solution, params Point[] points)
+        public Dataset(double solution, params Vector2[] points)
             : this(points, solution) { }
         public Dataset(double[] array)
             : this(array[..^1], array[^1]) { }
@@ -70,7 +70,7 @@ namespace Algorithm.Data
             // For diagonal.
             angle += 0.5;
             // Point is here undersood as Vector2.
-            Point diagonal = new(Math.Cos(angle * Math.PI), Math.Sin(angle * Math.PI));
+            Vector2 diagonal = new(Math.Cos(angle * Math.PI), Math.Sin(angle * Math.PI));
 
             for (int i = 0; i < Size; i++)
                 (diagonal.Dot(this[i]) > 0 ? ref leftHandCount : ref rightHandCount) += 1;

@@ -21,4 +21,13 @@
     <Folder Include="Theme\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Algorithm">
+      <HintPath>Algorytm\bin\Debug\net5.0\Algorithm.dll</HintPath>
+    </Reference>
+    <Reference Include="ArffTools">
+      <HintPath>Algorytm\bin\Debug\net5.0\ArffTools.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
