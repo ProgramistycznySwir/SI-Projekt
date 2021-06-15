@@ -46,8 +46,6 @@ namespace Algorithm.Data
         {
             using (ArffReader reader = new ArffReader(filename))
             {
-            Datasets_train = new List<Dataset>();
-            Datasets_test = new List<Dataset>();
                 ArffHeader header = reader.ReadHeader();
                 //DecissionAttributeName = header.RelationName;
                 int attributesCount = header.Attributes.Count;
@@ -61,7 +59,7 @@ namespace Algorithm.Data
                 {
                     // if (rawDataset.Count() != DatasetSize * 2 + 1)
                     //     throw new ArgumentException();
-                    
+
                     Datasets_train.Add(new Dataset(rawDataset.Cast<double>().ToArray()));
                 }
             }

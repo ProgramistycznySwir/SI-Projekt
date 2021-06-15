@@ -13,8 +13,11 @@ namespace Algorithm.Marshalling
         public Point(double x, double y)
             => (X, Y) = (x, y);
 
-        // Do szybkiego generowanie punktów.
-        public Point Random => new Point(CommonUseRNG.NextDouble(), CommonUseRNG.NextDouble());
+        /// <summary> Generates random point in range of -1 to 1. </summary>
+        public Point Random => new Point(CommonUseRNG.NextDouble()*2-1, CommonUseRNG.NextDouble()*2-1);
+
+        public double Lenght => Math.Sqrt(X*X + Y*Y);
+        public Point Normalized => this / Lenght;
 
         /// <summary>
         /// Tworzy listę tablic na potrzeby uczenia sieci neuronowej.
@@ -37,20 +40,6 @@ namespace Algorithm.Marshalling
         }
 
 
-        public static bool CheckIfSetIsDividedPropperly(List<Point> points, double angle)
-        {
-            int leftHandCount = 0;
-            int rightHandCount = 0;
-            // For diagonal.
-            angle += 0.5;
-            // Point is here undersood as Vector2.
-            Point diagonal = new(Math.Cos(angle * Math.PI), Math.Sin(angle * Math.PI));
-
-            foreach (var point in points)
-                (diagonal.Dot(point) > 0 ? ref leftHandCount : ref rightHandCount) += 1;
-
-            return leftHandCount == rightHandCount;
-        }
 
         public double Dot(Point other)
             => (X * other.X) + (Y * other.Y);
@@ -68,5 +57,9 @@ namespace Algorithm.Marshalling
         //public static implicit operator (double, double)(Point point)
         //    => (point.X, point.Y);
 
+        public static Point operator *(Point point, double scalar)
+            => new Point(point.X * scalar, point.Y * scalar);
+        public static Point operator /(Point point, double scalar)
+            => new Point(point.X / scalar, point.Y / scalar);
     }
 }
