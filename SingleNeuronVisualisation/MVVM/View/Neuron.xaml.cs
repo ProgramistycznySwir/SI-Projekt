@@ -20,9 +20,32 @@ namespace SingleNeuronVisualisation.MVVM.View
     /// </summary>
     public partial class Neuron : Page
     {
+        // Singleton
+        public static Neuron instance { get; private set; }
+
         public Neuron()
         {
             InitializeComponent();
+            instance = this;
+        }
+
+        // Just wrapper
+        public static void DrawNeuronsWrapper() => instance.DrawNeurons();
+
+        public void DrawNeurons()
+        {
+            int inputNodeCount = MainWindow.data.DatasetSize;
+            for (int i = 0; i < inputNodeCount; i++)
+            {
+                Image inputNode = new();
+                inputNode.Width = 60;
+                inputNode.Height = 60;
+                //inputNode.HorizontalAlignment = HorizontalAlignment.Center;
+                //inputNode.VerticalAlignment = VerticalAlignment.Center;
+                inputNode.Source = new BitmapImage(new Uri(@"\Images\Input.png"));
+                //inputNode.Fill = Brushes.Black;
+                MainCanvas.Children.Add(inputNode);
+            }            
         }
     }
 }

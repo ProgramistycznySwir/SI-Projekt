@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SingleNeuronVisualisation"
         mc:Ignorable="d"
-        Title="Learning algorithm of a single perceptron neuron" Height="450" Width="800" Background="#FF708090">
+        Title="Learning algorithm of a single perceptron neuron" Height="675" Width="1200" Background="#FF708090">
     <Grid>
         <TabControl
             HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="5,0,5,5">
@@ -26,9 +26,11 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <TextBlock
-            HorizontalAlignment="Right">
-            TEXT and more text
-        </TextBlock>
+        <Grid
+            HorizontalAlignment="Right" VerticalAlignment="Top"
+            Height="20"
+            Margin="0,2,5,0">
+            <Button Name="btnOpenFile" Click="btnOpenFile_Click">Open file</Button>
+        </Grid>
     </Grid>
 </Window>
