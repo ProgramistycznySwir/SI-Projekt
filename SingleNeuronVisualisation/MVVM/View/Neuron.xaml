@@ -25,10 +25,6 @@
                    Width="60" Height="60"
                    Canvas.Top="195" Canvas.Right="50"
                    />
-
-
-
-
         </Canvas>
     </ScrollViewer>
 </Page>
