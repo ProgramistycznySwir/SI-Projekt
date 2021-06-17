@@ -87,11 +87,11 @@ namespace Algorithm.Data
         public void AddDataset(Dataset dataset, bool asTestDataset = false)
             => (asTestDataset ? Datasets_test : Datasets_train).Add(dataset);
         /// <summary> Moves dataset of specified index to other dataset. </summary>
-        public void MoveDataset(int index, bool fromTestDataset = false)
+        public void MoveDataset(int index, bool toTestDataset = false)
         {
-            (!fromTestDataset ? Datasets_test : Datasets_train)
-                .Add((fromTestDataset ? Datasets_test : Datasets_train)[index]);
-            RemoveDataset(index, fromTestDataset);
+            (!toTestDataset ? Datasets_test : Datasets_train)
+                .Add((toTestDataset ? Datasets_test : Datasets_train)[index]);
+            RemoveDataset(index, toTestDataset);
         }
         /// <summary> Remove dataset at specified index. </summary>
         public void RemoveDataset(int index, bool fromTestDataset = false)

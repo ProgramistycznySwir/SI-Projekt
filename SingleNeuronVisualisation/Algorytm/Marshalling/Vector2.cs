@@ -61,5 +61,9 @@ namespace Algorithm.Marshalling
             => new Vector2(point.X * scalar, point.Y * scalar);
         public static Vector2 operator /(Vector2 point, double scalar)
             => new Vector2(point.X / scalar, point.Y / scalar);
+        public static Vector2 operator +(Vector2 a, Vector2 b)
+            => new Vector2(a.X + b.X, a.Y + b.Y);
+        public static Vector2 operator -(Vector2 a, Vector2 b)
+            => new Vector2(a.X - b.X, a.Y - b.Y);
     }
 }
