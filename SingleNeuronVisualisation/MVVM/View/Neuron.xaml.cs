@@ -30,6 +30,7 @@ namespace SingleNeuronVisualisation.MVVM.View
         {
             InitializeComponent();
             instance = this;
+            DataContext = new NeuronModel();
             nodeTexts = new();
         }
 
@@ -80,6 +81,16 @@ namespace SingleNeuronVisualisation.MVVM.View
                 MainCanvas.Children.Add(nodeText);
                 nodeTexts.Add(nodeText);
             }            
+        }
+
+        public class NeuronModel
+        {
+            public string sigmoidImageLink { get; set; }
+
+            public NeuronModel()
+            {
+                sigmoidImageLink = System.IO.Path.Combine(Environment.CurrentDirectory, @"Images\SigmoidIcon.png");
+            }
         }
     }
 }

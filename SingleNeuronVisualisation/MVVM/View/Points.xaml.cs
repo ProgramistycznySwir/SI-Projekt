@@ -23,47 +23,88 @@ namespace SingleNeuronVisualisation.MVVM.View
     /// </summary>
     public partial class Points : Page
     {
-        //public static List<Dataset> Datasets_train { get; set; }
-        //public static List<Dataset> Datasets_test { get; set; }
-       
+        public static List<Dataset> Datasets_train { get; set; }
+        public static List<Dataset> Datasets_test { get; set; }
+
+        public static PointsDataContext context { get; set; }
+        public static Points instance { get; set; }
+
+        //public static Dataset CurrentlySelectedDataset { get; set; }
+
         // public ObservableCollection<MLData> fileList = new ObservableCollection<MLData>();
 
         public Points()
         {
             InitializeComponent();
-
-            DataContext = new PointsDataContext(4);
+            context = new PointsDataContext();
+            DataContext = context;
+            instance = this;
 
             //DataContext = this;
         }
 
         public static void Setup()
         {
-            //Datasets_train = MainWindow.data.Datasets_train;
-            //Datasets_test = MainWindow.data.Datasets_test;
+            instance.PointsList_train.ItemsSource = MainWindow.data.Datasets_train;
+            instance.PointsList_test.ItemsSource = MainWindow.data.Datasets_test;
         }
 
-        private void listView1_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        //void RenderPoints()
+        //{
+        //    if(CurrentlySelectedDataset)
+        //    PointsDisplay.Children.Add()
+        //}
 
+        private void btn_Move_Click(object sender, RoutedEventArgs e)
+        {
+            if (PointsTabs.SelectedItem == Train)
+            {
+                int index = instance.PointsList_train.SelectedIndex;
+                // Jest na odwrót w drugim parametrze.
+                MainWindow.data.MoveDataset(index, false);
+                PointsList_train.Items.Refresh();
+            }
+            else
+            {
+                int index = instance.PointsList_test.SelectedIndex;
+                // Jest na odwrót w drugim parametrze.
+                MainWindow.data.MoveDataset(index, true);
+                PointsList_test.Items.Refresh();
+            }
         }
-
-        private void Button_Click(object sender, SelectionChangedEventArgs e) { }
-
-        private void listView1_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        private void btn_Show_Click(object sender, RoutedEventArgs e)
         {
+            // Clear display.
+            PointsDisplay.Children.RemoveRange(0, PointsDisplay.Children.Count);
 
+            if (PointsTabs.SelectedItem == Train)
+            {
+                int index = instance.PointsList_train.SelectedIndex;
+                // Jest na odwrót w drugim parametrze.
+                MainWindow.data.MoveDataset(index, false);
+                PointsList_train.Items.Refresh();
+            }
+            else
+            {
+                int index = instance.PointsList_test.SelectedIndex;
+                // Jest na odwrót w drugim parametrze.
+                MainWindow.data.MoveDataset(index, true);
+                PointsList_test.Items.Refresh();
+            }
+            //TODO: Usunąć to bo to tylko debug.
+            var data = MainWindow.data;
+            int i = 0;
         }
 
         public class PointsDataContext
         {
             public string StrokeLineWidth { get; set; }
             // Jeszcze nie wiem co to robi.
-            public List<Point> FileStore { get; set; }
+            public List<Dataset> FileStore { get; set; }
 
-            public PointsDataContext(int width)
+            public PointsDataContext()
             {
-                StrokeLineWidth = width.ToString();
+                StrokeLineWidth = "4";
             }
         }
 

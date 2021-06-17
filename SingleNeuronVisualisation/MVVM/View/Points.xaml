@@ -32,24 +32,43 @@
                   VerticalAlignment="Center"
                   X1="0" Y1="0"
                   X2="2000" Y2="0" />
-            
         </Grid>
-
-        <ListView Grid.Column="1" 
-                  HorizontalAlignment="Center" Width="250"
-                  Name="listView1" 
-                  ItemsSource="{Binding FileStore}" >
-            
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Data training" DisplayMemberBinding = "{Binding Datasets_train.ToString}" Width="125"/>
-                    <GridViewColumn Header="Data testing" DisplayMemberBinding = "{Binding Datasets_test.ToString}" Width="125"/>
-                </GridView>
-                
-               
-            </ListView.View>
-            
-            
-        </ListView>
+        <TabControl Grid.Column="1" x:Name="PointsTabs"
+            HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="5,0,5,5">
+            <TabItem x:Name="Train" Header="Train" Background="#FF4682B4">
+                <ListBox Name="PointsList_train">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </TabItem>
+            <TabItem x:Name="Test" Header="Test" Background="#FF4682B4">
+                <ListBox Name="PointsList_test">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </TabItem>
+        </TabControl>
+        <Button Name="btn_Move" Grid.Column="1"
+                Click="btn_Move_Click"
+                Height="20" Width="40"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Margin="0,1,10,0">Move</Button>
+        <Button Name="btn_Show" Grid.Column="1"
+                Click="btn_Show_Click"
+                Height="20" Width="40"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Right"
+                Margin="0,1,55,0">Show</Button>
     </Grid>
 </Page>

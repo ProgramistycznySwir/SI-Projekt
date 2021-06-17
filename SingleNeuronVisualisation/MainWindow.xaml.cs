@@ -37,8 +37,12 @@ namespace SingleNeuronVisualisation
             InitializeComponent();
         }
 
-        private void btnOpenFile_Click(object sender, RoutedEventArgs e)
+        private void btn_OpenFile_Click(object sender, RoutedEventArgs e)
         {
+            // TODO: Throw this 3 lines out.
+            data = new MLData(System.IO.Path.Combine(Environment.CurrentDirectory, "test.arff"));
+            InitializeNeuralNetwork(data);
+            return;
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() is true)
             {
@@ -46,6 +50,11 @@ namespace SingleNeuronVisualisation
                 data = new MLData(filename);
                 InitializeNeuralNetwork(data);
             }
+        }
+
+        private void btn_Step_Click(object sender, RoutedEventArgs e)
+        {
+            TeachAlgorithm(1);
         }
 
         private void InitializeNeuralNetwork(MLData data)
@@ -59,31 +68,27 @@ namespace SingleNeuronVisualisation
             Neuron.DrawNeuronsWrapper();
             Points.Setup();
         }
+                
 
-        public void btnLearnAlgor_Click(object sender, RoutedEventArgs e)
+        public void TeachAlgorithm(int iterations, bool calculatePredictions = false)
         {
+            for (int i = iterations; i > 0; i--)
+            {
+                // Training:
+                for (int ii = data.Datasets_train.Count - 1; ii >= 0; ii--)
+                    network.Train(data.Datasets_train[ii].PointsData, new double[] { data.Datasets_train[ii].Solution });
 
-            InitializeNeuralNetwork(data);
-
-            data.Datasets_train[0].CalculateSolution();
-             data.Datasets_train[1].CalculateSolution();
-
-             double targetError = 0.01f;
-
-             while (true)
-             {
-
-                 double prediction = network.Predict(data.Datasets_train[0].PointsData).First;
-
-
-                 if (data.Datasets_train[0].CalculateError(prediction) < targetError)
-                     break;
-
-                 for (int i = 100; i > 0; i--)
-
-                     for (int ii = data.Datasets_train.Count - 1; ii >= 0; ii--)
-                         network.Train(data.Datasets_train[ii].PointsData, new double[] { data.Datasets_train[ii].Solution });
-             }
+                // Calculating errors:
+                if (calculatePredictions is false)
+                    continue;
+                int correctPredictions_train = 0; int correctPredictions_test = 0;
+                foreach (var dataset in data.Datasets_train)
+                    if (dataset.CheckIfSetIsDividedPropperlyBy(network.Predict(dataset.PointsData).First))
+                        correctPredictions_train++;
+                foreach (var dataset in data.Datasets_test)
+                    if (dataset.CheckIfSetIsDividedPropperlyBy(network.Predict(dataset.PointsData).First))
+                        correctPredictions_test++;
+            }
         }
     }
 }

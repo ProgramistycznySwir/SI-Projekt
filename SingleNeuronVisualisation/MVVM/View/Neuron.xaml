@@ -21,7 +21,7 @@
                      Width="60" Height="60" 
                      Canvas.Top="195" Canvas.Right="240" />
             <Image x:Name="OutputNode"
-                   Source="C:\USB SZTYK BEKAP 11-03-2021\Semestr4\Sztuczna Inteligencja\Projekt\SingleNeuronVisualisation\Images\SigmoidIcon.png" 
+                   Source="{Binding sigmoidImageLink}" 
                    Width="60" Height="60"
                    Canvas.Top="195" Canvas.Right="50"
                    />

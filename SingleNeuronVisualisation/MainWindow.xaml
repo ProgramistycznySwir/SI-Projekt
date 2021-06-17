@@ -31,14 +31,14 @@
             HorizontalAlignment="Right" VerticalAlignment="Top"
             Height="20"
             Margin="0,2,5,0">
-            <Button Name="btnOpenFile" Click="btnOpenFile_Click">Open file</Button>
+            <Button Name="btn_OpenFile" Click="btn_OpenFile_Click">Open file</Button>
         </Grid>
 
         <Grid
             HorizontalAlignment="Center" VerticalAlignment="Top"
             Height="20"
             Margin="0,2,5,0">
-            <Button Name="btnLearnAlgor" Click="btnLearnAlgor_Click">Learning algorithm</Button>
+            <Button Name="btn_Step" Click="btn_Step_Click">Step</Button>
         </Grid>
     </Grid>
 </Window>
