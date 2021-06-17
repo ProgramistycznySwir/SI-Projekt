@@ -17,8 +17,10 @@ namespace Algorithm
     {
         static void Main(string[] args)
         {
+            //Presentation();
+            //return;
             // SimpleTest();
-            while(true)
+            while (true)
             {
                 RandomTest();
                 Console.ReadKey();
@@ -26,7 +28,6 @@ namespace Algorithm
             }
             return;
 
-            const string filename = @"C:\USB SZTYK BEKAP 11-03-2021\Semestr4\Sztuczna Inteligencja\Projekt\Data\DataStructure.arff";
             const string filename_test = @"test.arff";
 
             MLData data = new(4);
@@ -49,7 +50,65 @@ namespace Algorithm
 
         }
 
-        private static void RandomTest()
+        static void Presentation()
+        {
+            MLData data = new("data.arff");
+
+            Dataset set = new(0.5, (1, 0), (1, 1), (-1, 1), (-1, -1));
+            data.AddDataset(set);
+            set.CalculateSolution();
+            data.AddDataset(set);
+            set = Dataset.CreateRandom(4);
+            data.AddDataset(set);
+
+
+            SingleLayerNeuralNetwork network = new(
+                inputNodes: data.DatasetSize * 2,
+                hiddenNodes: 1,
+                outputNodes: 1,
+                activator: MachineLearningCatalogue.Activator.Sigmoid);
+
+            double targetError = 0.01f;
+            while (true)
+            {
+                double prediction = network.Predict(data.Datasets_train[0].PointsData).First;
+                Console.WriteLine(">> Baseline training result" + prediction);
+                if (data.Datasets_train[0].CalculateError(prediction) < targetError)
+                    break;
+                for (int i = 1_000; i > 0; i--)
+                    for (int ii = data.Datasets_train.Count - 1; ii >= 0; ii--)
+                        network.Train(data.Datasets_train[ii].PointsData, new double[] { data.Datasets_train[ii].Solution });
+                //break;
+            }
+            foreach (var dataset in data.Datasets_train)
+                if (dataset.CheckIfSetIsDividedPropperlyBy(network.Predict(dataset.PointsData).First) is false)
+                    Console.WriteLine($"Baseline: Failed for {dataset}");
+
+
+            network = new(
+                inputNodes: data.DatasetSize * 2,
+                hiddenNodes: 1,
+                outputNodes: 1,
+                activator: MachineLearningCatalogue.Activator.Sigmoid);
+            data = DataNormalization.EqualizePointsLenght(data);
+            targetError = 0.01f;
+            while (true)
+            {
+                double prediction = network.Predict(data.Datasets_train[0].PointsData).First;
+                Console.WriteLine(">> Normalized training result" + prediction);
+                if (data.Datasets_train[0].CalculateError(prediction) < targetError)
+                    break;
+                for (int i = 1_000; i > 0; i--)
+                    for (int ii = data.Datasets_train.Count - 1; ii >= 0; ii--)
+                        network.Train(data.Datasets_train[ii].PointsData, new double[] { data.Datasets_train[ii].Solution });
+                //break;
+            }
+            foreach (var dataset in data.Datasets_train)
+                if (dataset.CheckIfSetIsDividedPropperlyBy(network.Predict(dataset.PointsData).First) is false)
+                    Console.WriteLine($"Normalized: Failed for {dataset}");
+        }
+
+        static void RandomTest()
         {
             const int PointsAtInput = 20;
             SingleLayerNeuralNetwork network = new(
@@ -72,7 +131,7 @@ namespace Algorithm
                 Console.WriteLine(prediction);
                 if (data.Datasets_train[0].CalculateError(prediction) < targetError)
                     break;
-                for (int i = 1000; i > 0; i--)
+                for (int i = 1_000; i > 0; i--)
                     for (int ii = data.Datasets_train.Count - 1; ii >= 0; ii--)
                         network.Train(data.Datasets_train[ii].PointsData, new double[] {data.Datasets_train[ii].Solution});
                 break;
@@ -81,10 +140,10 @@ namespace Algorithm
             // Wyświetlenie rezultatów:
             int fails = 0; int failedTests = 0;
             foreach (var dataset in data.Datasets_train)
-                if (dataset.CheckIfSetIsDividedPropperlyBy(network.Predict(dataset.PointsData).First))
+                if (dataset.CheckIfSetIsDividedPropperlyBy(network.Predict(dataset.PointsData).First) is false)
                     fails++;
             foreach (var dataset in data.Datasets_test)
-                if (dataset.CheckIfSetIsDividedPropperlyBy(network.Predict(dataset.PointsData).First))
+                if (dataset.CheckIfSetIsDividedPropperlyBy(network.Predict(dataset.PointsData).First) is false)
                     failedTests++;
             Console.WriteLine($"Baseline: Failed in {fails} checks.");
             Console.WriteLine($"    Tests: {failedTests}");
@@ -102,7 +161,7 @@ namespace Algorithm
                 Console.WriteLine(prediction);
                 if (data.Datasets_train[0].CalculateError(prediction) < targetError)
                     break;
-                for (int i = 1000; i > 0; i--)
+                for (int i = 1_000; i > 0; i--)
                     for (int ii = data.Datasets_train.Count - 1; ii >= 0; ii--)
                         network.Train(data.Datasets_train[ii].PointsData, new double[] {data.Datasets_train[ii].Solution});
                 break;
@@ -111,10 +170,10 @@ namespace Algorithm
             // Wyświetlenie rezultatów:
             fails = 0; failedTests = 0;
             foreach (var dataset in data.Datasets_train)
-                if (dataset.CheckIfSetIsDividedPropperlyBy(network.Predict(dataset.PointsData).First))
+                if (dataset.CheckIfSetIsDividedPropperlyBy(network.Predict(dataset.PointsData).First) is false)
                     fails++;
             foreach (var dataset in data.Datasets_test)
-                if (dataset.CheckIfSetIsDividedPropperlyBy(network.Predict(dataset.PointsData).First))
+                if (dataset.CheckIfSetIsDividedPropperlyBy(network.Predict(dataset.PointsData).First) is false)
                     failedTests++;
             Console.WriteLine($"Mirror: Failed in {fails} checks.");
             Console.WriteLine($"    Tests: {failedTests}");
@@ -133,19 +192,19 @@ namespace Algorithm
                 Console.WriteLine(prediction);
                 if (data.Datasets_train[0].CalculateError(prediction) < targetError)
                     break;
-                for (int i = 1000; i > 0; i--)
+                for (int i = 1_000; i > 0; i--)
                     for (int ii = data.Datasets_train.Count - 1; ii >= 0; ii--)
-                        network.Train(data.Datasets_train[ii].PointsData, new double[] {data.Datasets_train[ii].Solution});
+                        network.Train(data.Datasets_train[ii].PointsData, new double[] { data.Datasets_train[ii].Solution });
                 break;
             }
 
             // Wyświetlenie rezultatów:
             fails = 0; failedTests = 0;
             foreach (var dataset in data.Datasets_train)
-                if (dataset.CheckIfSetIsDividedPropperlyBy(network.Predict(dataset.PointsData).First))
+                if (dataset.CheckIfSetIsDividedPropperlyBy(network.Predict(dataset.PointsData).First) is false)
                     fails++;
             foreach (var dataset in data.Datasets_test)
-                if (dataset.CheckIfSetIsDividedPropperlyBy(network.Predict(dataset.PointsData).First))
+                if (dataset.CheckIfSetIsDividedPropperlyBy(network.Predict(dataset.PointsData).First) is false)
                     failedTests++;
             Console.WriteLine($"EqualizedLenght: Failed in {fails} checks.");
             Console.WriteLine($"    Tests: {failedTests}");
@@ -164,19 +223,19 @@ namespace Algorithm
                 Console.WriteLine(prediction);
                 if (data.Datasets_train[0].CalculateError(prediction) < targetError)
                     break;
-                for (int i = 1000; i > 0; i--)
+                for (int i = 1_000; i > 0; i--)
                     for (int ii = data.Datasets_train.Count - 1; ii >= 0; ii--)
-                        network.Train(data.Datasets_train[ii].PointsData, new double[] {data.Datasets_train[ii].Solution});
+                        network.Train(data.Datasets_train[ii].PointsData, new double[] { data.Datasets_train[ii].Solution });
                 break;
             }
 
             // Wyświetlenie rezultatów:
             fails = 0; failedTests = 0;
             foreach (var dataset in data.Datasets_train)
-                if (dataset.CheckIfSetIsDividedPropperlyBy(network.Predict(dataset.PointsData).First))
+                if (dataset.CheckIfSetIsDividedPropperlyBy(network.Predict(dataset.PointsData).First) is false)
                     fails++;
             foreach (var dataset in data.Datasets_test)
-                if (dataset.CheckIfSetIsDividedPropperlyBy(network.Predict(dataset.PointsData).First))
+                if (dataset.CheckIfSetIsDividedPropperlyBy(network.Predict(dataset.PointsData).First) is false)
                     failedTests++;
             Console.WriteLine($"AllNormalization: Failed in {fails} checks.");
             Console.WriteLine($"    Tests: {failedTests}");

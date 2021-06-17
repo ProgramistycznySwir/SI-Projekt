@@ -23,12 +23,14 @@ namespace SingleNeuronVisualisation.MVVM.View
     {
         // Singleton
         public static Neuron instance { get; private set; }
-        public static TextBlock nodeTexts { get; set; }
+        // Store so they can be updated.
+        public static List<TextBlock> nodeTexts { get; set; }
 
         public Neuron()
         {
             InitializeComponent();
             instance = this;
+            nodeTexts = new();
         }
 
         // Just wrapper
@@ -43,31 +45,40 @@ namespace SingleNeuronVisualisation.MVVM.View
                 positions[i].X = 60;
                 positions[i].Y = i * 60;
             }
+
+            Point neuronPosition = MainNeuron.TranslatePoint(new Point(0,0), (VisualTreeHelper.GetParent(MainNeuron) as UIElement));
+
             // First add lines.
+            for (int i = 0; i < inputNodeCount; i++)
+            {
+                Line line = new();
+                line.X1 = positions[i].X + 30;
+                line.Y1 = positions[i].Y + 30;
+                line.X2 = neuronPosition.X + 30;
+                line.Y2 = neuronPosition.Y + 30;
+                line.StrokeThickness = 4;
+                line.Stroke = Brushes.Gray;
+
+                MainCanvas.Children.Add(line);
+            }
+            // Then nodes.
             for (int i = 0; i < inputNodeCount; i++)
             {
                 Image inputNode = new();
                 inputNode.Width = 60;
                 inputNode.Height = 60;
                 inputNode.Margin = new Thickness(positions[i].X, positions[i].Y, 0, 0);
+                inputNode.Source = new BitmapImage(new Uri(System.IO.Path.Combine(Environment.CurrentDirectory, @"Images\Input.png")));
 
-                //inputNode.HorizontalAlignment = HorizontalAlignment.Center;
-                //inputNode.VerticalAlignment = VerticalAlignment.Center;
-                //inputNode.Source = new BitmapImage(new Uri(@"\Images\Input.png"));
-               // inputNode.Source = new BitmapImage(new Uri(@"C:\USB SZTYK BEKAP 11-03-2021\Semestr4\Sztuczna Inteligencja\Projekt\SingleNeuronVisualisation\Images\Input.png"));
+                TextBlock nodeText = new();
+                nodeText.Margin = new Thickness(positions[i].X + 60, positions[i].Y, 0, 0);
+                nodeText.Text = $"Input{i}:\n weight: NaN";
+
+                //inputNode.Source = new BitmapImage(new Uri(@"C:\USB SZTYK BEKAP 11-03-2021\Semestr4\Sztuczna Inteligencja\Projekt\SingleNeuronVisualisation\Images\Input.png"));
                 //inputNode.Fill = Brushes.Black;
                 MainCanvas.Children.Add(inputNode);
-            }
-            // Then nodes.
-            return;
-            for (int i = 0; i < inputNodeCount; i++)
-            {
-                Line inputNode = new();
-                inputNode.Width = 60;
-                inputNode.Height = 60;
-
-
-                MainCanvas.Children.Add(inputNode);
+                MainCanvas.Children.Add(nodeText);
+                nodeTexts.Add(nodeText);
             }            
         }
     }

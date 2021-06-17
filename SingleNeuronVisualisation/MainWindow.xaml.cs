@@ -50,7 +50,6 @@ namespace SingleNeuronVisualisation
 
         private void InitializeNeuralNetwork(MLData data)
         {
-
             network = new(
                 inputNodes: data.DatasetSize * 2,
                 hiddenNodes: 1,
@@ -58,7 +57,7 @@ namespace SingleNeuronVisualisation
                 activator: MachineLearningCatalogue.Activator.Sigmoid);
 
             Neuron.DrawNeuronsWrapper();
-            Points.setupDatasets();
+            Points.Setup();
         }
 
         public void btnLearnAlgor_Click(object sender, RoutedEventArgs e)

@@ -23,9 +23,8 @@ namespace SingleNeuronVisualisation.MVVM.View
     /// </summary>
     public partial class Points : Page
     {
-
-        public static List<Dataset> Datasets_train { get; set; }
-        public static List<Dataset> Datasets_test { get; set; }
+        //public static List<Dataset> Datasets_train { get; set; }
+        //public static List<Dataset> Datasets_test { get; set; }
        
         // public ObservableCollection<MLData> fileList = new ObservableCollection<MLData>();
 
@@ -33,21 +32,15 @@ namespace SingleNeuronVisualisation.MVVM.View
         {
             InitializeComponent();
 
-            //DataContext = new PointsDataContext(4);
-        
-        
-            DataContext = this;
+            DataContext = new PointsDataContext(4);
 
-        
-   
-            
-           
+            //DataContext = this;
         }
 
-        public static void setupDatasets()
+        public static void Setup()
         {
-            Datasets_train = MainWindow.data.Datasets_train;
-            Datasets_test = MainWindow.data.Datasets_test;
+            //Datasets_train = MainWindow.data.Datasets_train;
+            //Datasets_test = MainWindow.data.Datasets_test;
         }
 
         private void listView1_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -62,21 +55,21 @@ namespace SingleNeuronVisualisation.MVVM.View
 
         }
 
-
-        /*public class PointsDataContext
+        public class PointsDataContext
         {
             public string StrokeLineWidth { get; set; }
+            // Jeszcze nie wiem co to robi.
+            public List<Point> FileStore { get; set; }
+
             public PointsDataContext(int width)
             {
                 StrokeLineWidth = width.ToString();
             }
         }
 
-       /* public ObservableCollection<MLData> FileStore
-        {
-            get { return fileList; }
-        }
-       */
-
+        //public ObservableCollection<MLData> FileStore
+        //{
+        //    get { return fileList; }
+        //}
     }
 }
