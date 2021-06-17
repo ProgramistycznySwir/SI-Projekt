@@ -33,7 +33,7 @@ namespace SingleNeuronVisualisation.MVVM.View
         {
             InitializeComponent();
 
-            //DataContext = new PointsDataContext(4);
+            DataContext = new PointsDataContext(4);
         
         
             DataContext = this;
@@ -63,7 +63,7 @@ namespace SingleNeuronVisualisation.MVVM.View
         }
 
 
-        /*public class PointsDataContext
+        public class PointsDataContext
         {
             public string StrokeLineWidth { get; set; }
             public PointsDataContext(int width)

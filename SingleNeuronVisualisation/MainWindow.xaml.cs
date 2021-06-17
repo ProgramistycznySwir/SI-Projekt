@@ -62,12 +62,9 @@ namespace SingleNeuronVisualisation
         }
 
         public void btnLearnAlgor_Click(object sender, RoutedEventArgs e)
-        {
-
-            InitializeNeuralNetwork(data);
-
-            data.Datasets_train[0].CalculateSolution();
-             data.Datasets_train[1].CalculateSolution();
+        { 
+             //data.Datasets_train[0].CalculateSolution();
+            // data.Datasets_train[1].CalculateSolution();
 
              double targetError = 0.01f;
 
@@ -85,6 +82,9 @@ namespace SingleNeuronVisualisation
                      for (int ii = data.Datasets_train.Count - 1; ii >= 0; ii--)
                          network.Train(data.Datasets_train[ii].PointsData, new double[] { data.Datasets_train[ii].Solution });
              }
+
+            //network.Predict(data.Datasets_train[0].PointsData);
+            //network.Predict(data.Datasets_train[1].PointsData);
         }
     }
 }
