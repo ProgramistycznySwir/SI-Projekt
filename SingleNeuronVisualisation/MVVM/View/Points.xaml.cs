@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Algorithm.Data;
-
+using Algorithm.Marshalling;
 
 namespace SingleNeuronVisualisation.MVVM.View
 {
@@ -77,20 +77,27 @@ namespace SingleNeuronVisualisation.MVVM.View
             // Clear display.
             PointsDisplay.Children.RemoveRange(0, PointsDisplay.Children.Count);
 
-            if (PointsTabs.SelectedItem == Train)
-            {
-                int index = instance.PointsList_train.SelectedIndex;
-                // Jest na odwrót w drugim parametrze.
-                MainWindow.data.MoveDataset(index, false);
-                PointsList_train.Items.Refresh();
-            }
-            else
-            {
-                int index = instance.PointsList_test.SelectedIndex;
-                // Jest na odwrót w drugim parametrze.
-                MainWindow.data.MoveDataset(index, true);
-                PointsList_test.Items.Refresh();
-            }
+            Dataset selectedDataset;
+
+            selectedDataset = (Dataset)(PointsTabs.SelectedItem == Train 
+                    ? instance.PointsList_train 
+                    : instance.PointsList_test)
+                .SelectedItem;
+
+            Vector2 size = (PointsDisplay.ActualWidth, PointsDisplay.ActualHeight);
+            Vector2 middle = size/2;
+
+
+            double angle = selectedDataset.Solution;
+            Line line = new();
+            line.Stroke = Brushes.Green;
+            line.StrokeThickness = 3;
+            (line.X1, line.Y1) = middle + new Vector2(Math.Cos(angle * Math.PI), Math.Sin(-angle * Math.PI))*-1000;
+            (line.X2, line.Y2) = middle + new Vector2(Math.Cos(angle * Math.PI), Math.Sin(-angle * Math.PI))*1000;
+            PointsDisplay.Children.Add(line);
+
+
+
             //TODO: Usunąć to bo to tylko debug.
             var data = MainWindow.data;
             int i = 0;
