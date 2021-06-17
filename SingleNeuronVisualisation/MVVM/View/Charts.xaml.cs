@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Algorithm.Data;
+using SingleNeuronVisualisation.MVVM.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,15 @@ namespace SingleNeuronVisualisation.MVVM
     /// </summary>
     public partial class Charts : Page
     {
+        public MLData ml { get; set; }
         public Charts()
         {
             InitializeComponent();
         }
+
+        LinkedList<float> listTraining = new ();
+        LinkedList<float> listTesting = new ();
+        
+        
     }
 }

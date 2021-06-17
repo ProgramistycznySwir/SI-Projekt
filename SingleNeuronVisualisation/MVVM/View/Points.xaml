@@ -31,17 +31,25 @@
                   StrokeThickness="{Binding StrokeLineWidth}"
                   VerticalAlignment="Center"
                   X1="0" Y1="0"
-                  X2="2000" Y2="0" />            
+                  X2="2000" Y2="0" />
+            
         </Grid>
 
         <ListView Grid.Column="1" 
-                  HorizontalAlignment="Right" 
-                  VerticalAlignment="Stretch" Width="250">
+                  HorizontalAlignment="Center" Width="250"
+                  Name="listView1" 
+                  ItemsSource="{Binding FileStore}" >
+            
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="Data training" DisplayMemberBinding = "{Binding Datasets_train.ToString}" Width="125"/>
+                    <GridViewColumn Header="Data testing" DisplayMemberBinding = "{Binding Datasets_test.ToString}" Width="125"/>
                 </GridView>
+                
+               
             </ListView.View>
+            
+            
         </ListView>
     </Grid>
 </Page>

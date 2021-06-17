@@ -9,6 +9,6 @@
       Title="Charts">
 
     <Grid>
-        
+        <Polyline x:Name="line" Stroke="LightBlue" StrokeThickness="2"  />
     </Grid>
 </Page>

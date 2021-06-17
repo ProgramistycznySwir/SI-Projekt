@@ -16,6 +16,11 @@
                   Stroke="Gray"
                   StrokeThickness="4"
                 />
+            <Line
+            X1="10" Y1="10"
+            X2="50" Y2="195"
+            Stroke="Black"
+            StrokeThickness="4" Canvas.Left="97" Canvas.Top="47" Height="133" Width="193" />
             <Ellipse x:Name="MainNeuron"
                      Fill="Black"
                      Width="60" Height="60" 

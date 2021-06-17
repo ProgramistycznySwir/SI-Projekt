@@ -18,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Algorithm;
 
 namespace SingleNeuronVisualisation
 {
@@ -49,6 +50,7 @@ namespace SingleNeuronVisualisation
 
         private void InitializeNeuralNetwork(MLData data)
         {
+
             network = new(
                 inputNodes: data.DatasetSize * 2,
                 hiddenNodes: 1,
@@ -56,6 +58,34 @@ namespace SingleNeuronVisualisation
                 activator: MachineLearningCatalogue.Activator.Sigmoid);
 
             Neuron.DrawNeuronsWrapper();
+            Points.setupDatasets();
+        }
+
+        public void btnLearnAlgor_Click(object sender, RoutedEventArgs e)
+        {
+
+            InitializeNeuralNetwork(data);
+
+            data.Datasets_train[0].CalculateSolution();
+             data.Datasets_train[1].CalculateSolution();
+
+             double targetError = 0.01f;
+
+             while (true)
+             {
+
+                 double prediction = network.Predict(data.Datasets_train[0].PointsData).First;
+
+
+                 if (data.Datasets_train[0].CalculateError(prediction) < targetError)
+                     break;
+
+                 for (int i = 100; i > 0; i--)
+
+                     for (int ii = data.Datasets_train.Count - 1; ii >= 0; ii--)
+                         network.Train(data.Datasets_train[ii].PointsData, new double[] { data.Datasets_train[ii].Solution });
+             }
         }
     }
 }
+
