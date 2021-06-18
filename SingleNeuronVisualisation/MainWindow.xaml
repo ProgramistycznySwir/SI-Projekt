@@ -12,7 +12,11 @@
             HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="5,0,5,5">
             <TabItem Header="Neuron" Background="#FF4682B4">
                 <Grid Background="#FFE5E5E5">
-                    <Frame x:Name="NeuronFrame" Source="/MVVM/View/Neuron.xaml" />
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="689*"/>
+                        <ColumnDefinition Width="495*"/>
+                    </Grid.ColumnDefinitions>
+                    <Frame x:Name="NeuronFrame" Source="/MVVM/View/Neuron.xaml" Grid.ColumnSpan="2" />
                     <!--<Page xmlns: Neuron />-->
                 </Grid>
             </TabItem>
@@ -39,6 +43,21 @@
             Height="20"
             Margin="0,2,5,0">
             <Button Name="btnLearnAlgor" Click="btnLearnAlgor_Click">Learning algorithm</Button>
+        </Grid>
+
+        <Grid
+            VerticalAlignment="Top"
+            Height="20"
+            Margin="0,2,5,0">
+            <Button Name="btnOneStep" Click="btnOneStep_Click" Margin="651,0,453,0">One step</Button>
+        </Grid>
+
+
+        <Grid
+            VerticalAlignment="Top"
+            Height="20"
+            Margin="0,2,5,0">
+            <Button Name="btnAfter100steps" Click="btnAfter100steos_Click" Margin="745,0,347,0">After 100 steps</Button>
         </Grid>
     </Grid>
 </Window>

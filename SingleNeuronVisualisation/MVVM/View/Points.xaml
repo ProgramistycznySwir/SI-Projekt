@@ -32,24 +32,32 @@
                   VerticalAlignment="Center"
                   X1="0" Y1="0"
                   X2="2000" Y2="0" />
-            
+
         </Grid>
 
-        <ListView Grid.Column="1" 
-                  HorizontalAlignment="Center" Width="250"
-                  Name="listView1" 
-                  ItemsSource="{Binding FileStore}" >
-            
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Data training" DisplayMemberBinding = "{Binding Datasets_train.ToString}" Width="125"/>
-                    <GridViewColumn Header="Data testing" DisplayMemberBinding = "{Binding Datasets_test.ToString}" Width="125"/>
-                </GridView>
-                
-               
-            </ListView.View>
-            
-            
-        </ListView>
+        <TabControl Margin="0,-2,0,0" Width="250" Grid.Column="1">
+            <TabItem Header="Data training"  Margin="-2,0,-2,0">
+                <ListBox Margin="0,0,1,0" Name="DatatrainListBox" Height="600">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </TabItem>
+            <TabItem Header="Data testing"  Margin="-2,0,-2,0">
+                <ListBox Margin="0,0,-1,0" Name="DatatestListBox" Height="600">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Page>

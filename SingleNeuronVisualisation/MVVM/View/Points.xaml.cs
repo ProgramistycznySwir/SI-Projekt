@@ -23,46 +23,28 @@ namespace SingleNeuronVisualisation.MVVM.View
     /// </summary>
     public partial class Points : Page
     {
-
-        public static List<Dataset> Datasets_train { get; set; }
-        public static List<Dataset> Datasets_test { get; set; }
-       
-        // public ObservableCollection<MLData> fileList = new ObservableCollection<MLData>();
+        public static Points instance;
 
         public Points()
         {
             InitializeComponent();
 
+            instance = this;
+
             DataContext = new PointsDataContext(4);
-        
-        
-            DataContext = this;
-
-        
-   
-            
-           
+          
         }
 
-        public static void setupDatasets()
+        public static void InstanceTrainAndTest()
         {
-            Datasets_train = MainWindow.data.Datasets_train;
-            Datasets_test = MainWindow.data.Datasets_test;
+            instance.DatatrainListBox.ItemsSource = MainWindow.data.Datasets_train;
+            instance.DatatestListBox.ItemsSource = MainWindow.data.Datasets_test;
         }
 
-        private void listView1_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
+       
         private void Button_Click(object sender, SelectionChangedEventArgs e) { }
 
-        private void listView1_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-
+        
         public class PointsDataContext
         {
             public string StrokeLineWidth { get; set; }
@@ -71,12 +53,6 @@ namespace SingleNeuronVisualisation.MVVM.View
                 StrokeLineWidth = width.ToString();
             }
         }
-
-       /* public ObservableCollection<MLData> FileStore
-        {
-            get { return fileList; }
-        }
-       */
 
     }
 }

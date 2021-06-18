@@ -31,6 +31,5 @@ namespace SingleNeuronVisualisation.MVVM
         LinkedList<float> listTraining = new ();
         LinkedList<float> listTesting = new ();
         
-        
     }
 }
