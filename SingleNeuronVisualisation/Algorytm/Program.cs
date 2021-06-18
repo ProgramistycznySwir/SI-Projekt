@@ -19,7 +19,8 @@ namespace Algorithm
         {
             //Presentation();
             //return;
-            // SimpleTest();
+            SimpleTest();
+            return;
             while (true)
             {
                 RandomTest();
@@ -274,7 +275,7 @@ namespace Algorithm
             Console.WriteLine(data.Datasets_train[0].Solution);
             data.Datasets_train[1].CalculateSolution();
             Console.WriteLine(data.Datasets_train[1].Solution);
-            return;
+            //return;
 
 
             // Tolerancja poniżej której sieć ma przestać się uczyć.
@@ -299,6 +300,10 @@ namespace Algorithm
                         network.Train(data.Datasets_train[ii].PointsData, new double[] {data.Datasets_train[ii].Solution});
             }
 
+            network.WeightsHo.Info("WeightsHo");
+            network.WeightsIh.Info("WeightsIh");
+            network.BiasHo.Info("BiasHo");
+            network.BiasIh.Info("BiasIh");
             // Wyświetlenie rezultatów:
             Console.WriteLine($"0: {network.Predict(data.Datasets_train[0].PointsData)}");
             Console.WriteLine($"1: {network.Predict(data.Datasets_train[1].PointsData)}");

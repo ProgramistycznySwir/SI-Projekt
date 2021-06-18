@@ -24,9 +24,13 @@ namespace SingleNeuronVisualisation.MVVM
     {
         public MLData ml { get; set; }
         public static Charts instance { get; set; }
+        public ChartsContext context;
+
         public Charts()
         {
             InitializeComponent();
+            context = new();
+            DataContext = context;
             instance = this;
         }
 
@@ -40,13 +44,23 @@ namespace SingleNeuronVisualisation.MVVM
             listTesting.AddLast(test);
             DataPointsCount++;
 
-            Line_train.Points.Add(new Point(DataPointsCount*10, train * Viewport.ActualHeight));
-            Line_test.Points.Add(new Point(DataPointsCount*10, test * Viewport.ActualHeight));
+            Line_train.Points.Add(new Point(DataPointsCount/10, (1-train) * 400));
+            Line_test.Points.Add(new Point(DataPointsCount/10, (1-test) * 400));
         }
 
         LinkedList<float> listTraining = new ();
         LinkedList<float> listTesting = new ();
-        
-        
+
+        public class ChartsContext
+        {
+            public string StrokeLineWidth { get; set; }
+            // Jeszcze nie wiem co to robi.
+            public List<Dataset> FileStore { get; set; }
+
+            public ChartsContext()
+            {
+                StrokeLineWidth = "4";
+            }
+        }
     }
 }

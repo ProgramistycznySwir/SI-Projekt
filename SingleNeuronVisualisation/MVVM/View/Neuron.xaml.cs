@@ -34,6 +34,16 @@ namespace SingleNeuronVisualisation.MVVM.View
             nodeTexts = new();
         }
 
+        public static void RefreshWeightsWrapper() => instance.RefreshWeights();
+
+        public void RefreshWeights()
+        {
+            //var tamp = MainWindow.network.WeightsIh;
+            //int temp = 1;
+            for (int i = 0; i < nodeTexts.Count; i++)
+                nodeTexts[i].Text = $"Input{i}:\n weight: {MainWindow.network.WeightsIh[0,i]}";
+        }
+
         // Just wrapper
         public static void DrawNeuronsWrapper() => instance.DrawNeurons();
 
@@ -73,13 +83,14 @@ namespace SingleNeuronVisualisation.MVVM.View
 
                 TextBlock nodeText = new();
                 nodeText.Margin = new Thickness(positions[i].X + 60, positions[i].Y, 0, 0);
-                nodeText.Text = $"Input{i}:\n weight: NaN";
+                //nodeText.Text = $"Input{i}:\n weight: NaN";
 
                 //inputNode.Source = new BitmapImage(new Uri(@"C:\USB SZTYK BEKAP 11-03-2021\Semestr4\Sztuczna Inteligencja\Projekt\SingleNeuronVisualisation\Images\Input.png"));
                 //inputNode.Fill = Brushes.Black;
                 MainCanvas.Children.Add(inputNode);
                 MainCanvas.Children.Add(nodeText);
                 nodeTexts.Add(nodeText);
+                RefreshWeights();
             }            
         }
 

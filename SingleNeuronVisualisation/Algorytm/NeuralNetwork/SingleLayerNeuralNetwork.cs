@@ -34,7 +34,7 @@ namespace MachineLearningCatalogue
             BiasHo = Random.NextMatrix(OutputNodes, 1);
         }
 
-        public void Train(double[] inputs, double[] targets)
+        public Matrix Train(double[] inputs, double[] targets)
         {
             var hidden = WeightsIh.Product(new Matrix(inputs)).Add(BiasIh).Map(Activator.Activate);
             var outputs = WeightsHo.Product(hidden).Add(BiasHo).Map(Activator.Activate);
@@ -51,6 +51,8 @@ namespace MachineLearningCatalogue
             BiasHo = BiasHo.Add(gradients);
             WeightsIh = WeightsIh.Add(weightIhDeltas);
             BiasIh = BiasIh.Add(hiddenGradient);
+
+            return outputs.Transpose();
         }
 
         public Matrix Predict(params double[] inputs)

@@ -82,5 +82,11 @@
                 VerticalAlignment="Top"
                 HorizontalAlignment="Right"
                 Margin="0,1,55,0">Show</Button>
+        <Button Name="brn_Predict" Grid.Column="1"
+                Click="brn_Predict_Click"
+                Height="20" Width="40"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Center"
+                Margin="0,1,0,0">Predict</Button>
     </Grid>
 </Page>

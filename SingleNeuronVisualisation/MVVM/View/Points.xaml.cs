@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using Algorithm.Data;
 using Algorithm.Marshalling;
 
@@ -29,18 +30,16 @@ namespace SingleNeuronVisualisation.MVVM.View
         public static PointsDataContext context { get; set; }
         public static Points instance { get; set; }
 
-        //public static Dataset CurrentlySelectedDataset { get; set; }
-
-        // public ObservableCollection<MLData> fileList = new ObservableCollection<MLData>();
+        Vector2 size, middle;
+        Line predictedLine;
 
         public Points()
         {
+            instance = this;
+
             InitializeComponent();
             context = new PointsDataContext();
             DataContext = context;
-            instance = this;
-
-            //DataContext = this;
         }
 
         public static void Setup()
@@ -49,11 +48,6 @@ namespace SingleNeuronVisualisation.MVVM.View
             instance.PointsList_test.ItemsSource = MainWindow.data.Datasets_test;
         }
 
-        //void RenderPoints()
-        //{
-        //    if(CurrentlySelectedDataset)
-        //    PointsDisplay.Children.Add()
-        //}
 
         private void btn_Move_Click(object sender, RoutedEventArgs e)
         {
@@ -86,10 +80,11 @@ namespace SingleNeuronVisualisation.MVVM.View
                 .SelectedItem;
 
             //Vector2 size = (PointsDisplay.ActualWidth, PointsDisplay.ActualHeight);
-            Vector2 size = (PointsDisplay.RenderSize.Width, PointsDisplay.RenderSize.Height);
-            Vector2 middle = size/2;
+            size = (PointsDisplay.RenderSize.Width, PointsDisplay.RenderSize.Height);
+            middle = size/2;
 
 
+            // Desired line:
             double angle = selectedDataset.Solution;
             Line line = new();
             line.Stroke = Brushes.Green;
@@ -98,7 +93,16 @@ namespace SingleNeuronVisualisation.MVVM.View
             (line.X2, line.Y2) = middle + new Vector2(Math.Cos(angle * Math.PI), Math.Sin(-angle * Math.PI))*1000;
             PointsDisplay.Children.Add(line);
 
-            foreach(var position in selectedDataset.GetPoints())
+            // Predicted line:
+            predictedLine = new();
+            predictedLine.Stroke = Brushes.Red;
+            predictedLine.StrokeThickness = 3;
+            (predictedLine.X1, predictedLine.Y1) = middle + new Vector2(Math.Cos(0 * Math.PI), Math.Sin(-0 * Math.PI)) * -1000;
+            (predictedLine.X2, predictedLine.Y2) = middle + new Vector2(Math.Cos(0 * Math.PI), Math.Sin(-0 * Math.PI)) * 1000;
+            PointsDisplay.Children.Add(predictedLine);
+
+
+            foreach (var position in selectedDataset.GetPoints())
             {
                 Ellipse point = new();
                 point.Fill = Brushes.Black;
@@ -116,22 +120,45 @@ namespace SingleNeuronVisualisation.MVVM.View
                 PointsDisplay.Children.Add(point);
             }
         }
+        private void brn_Predict_Click(object sender, RoutedEventArgs e)
+        {
+            int index;
+            if (PointsTabs.SelectedItem == Train)
+            {
+                index = PointsList_train.SelectedIndex;
+                if (index >= MainWindow.data.Datasets_train.Count || index < 0)
+                    return;
+                UpdateLine(MainWindow.network.Predict(MainWindow.data.Datasets_train[index].PointsData).First);
+            }
+            else
+            {
+                index = PointsList_test.SelectedIndex;
+                if (index >= MainWindow.data.Datasets_test.Count || index < 0)
+                    return;
+                UpdateLine(MainWindow.network.Predict(MainWindow.data.Datasets_test[index].PointsData).First);
+            }
+        }
+
+        public void UpdateLine(double angle)
+        {
+            (predictedLine.X1, predictedLine.Y1) = middle + new Vector2(Math.Cos(angle * Math.PI), Math.Sin(-angle * Math.PI)) * -1000;
+            (predictedLine.X2, predictedLine.Y2) = middle + new Vector2(Math.Cos(angle * Math.PI), Math.Sin(-angle * Math.PI)) * 1000;
+            //(predictedLine.X1, predictedLine.Y1) = (-100, -100);
+            //(predictedLine.X2, predictedLine.Y2) = (100, 100);
+            //predictedLine.HorizontalAlignment = HorizontalAlignment.Left;
+            //predictedLine.VerticalAlignment = VerticalAlignment.Bottom;
+            PointsDisplay.Children.Remove(predictedLine);
+            PointsDisplay.Children.Add(predictedLine);
+        }
 
         public class PointsDataContext
         {
             public string StrokeLineWidth { get; set; }
-            // Jeszcze nie wiem co to robi.
-            public List<Dataset> FileStore { get; set; }
 
             public PointsDataContext()
             {
                 StrokeLineWidth = "4";
             }
         }
-
-        //public ObservableCollection<MLData> FileStore
-        //{
-        //    get { return fileList; }
-        //}
     }
 }
