@@ -19,6 +19,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Algorithm;
+using SingleNeuronVisualisation.MVVM;
 
 namespace SingleNeuronVisualisation
 {
@@ -54,7 +55,7 @@ namespace SingleNeuronVisualisation
 
         private void btn_Step_Click(object sender, RoutedEventArgs e)
         {
-            TeachAlgorithm(1);
+            TeachAlgorithm(1, true);
         }
 
         private void InitializeNeuralNetwork(MLData data)
@@ -88,6 +89,8 @@ namespace SingleNeuronVisualisation
                 foreach (var dataset in data.Datasets_test)
                     if (dataset.CheckIfSetIsDividedPropperlyBy(network.Predict(dataset.PointsData).First))
                         correctPredictions_test++;
+                Charts.AddResultsWrapper(correctPredictions_train / data.Datasets_train.Count,
+                    correctPredictions_test / data.Datasets_test.Count);
             }
         }
     }

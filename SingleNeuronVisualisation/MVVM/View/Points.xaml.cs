@@ -77,14 +77,16 @@ namespace SingleNeuronVisualisation.MVVM.View
             // Clear display.
             PointsDisplay.Children.RemoveRange(0, PointsDisplay.Children.Count);
 
-            Dataset selectedDataset;
+            if (PointsTabs.SelectedItem is null)
+                return;
 
-            selectedDataset = (Dataset)(PointsTabs.SelectedItem == Train 
+            Dataset selectedDataset = (Dataset)(PointsTabs.SelectedItem == Train 
                     ? instance.PointsList_train 
                     : instance.PointsList_test)
                 .SelectedItem;
 
-            Vector2 size = (PointsDisplay.ActualWidth, PointsDisplay.ActualHeight);
+            //Vector2 size = (PointsDisplay.ActualWidth, PointsDisplay.ActualHeight);
+            Vector2 size = (PointsDisplay.RenderSize.Width, PointsDisplay.RenderSize.Height);
             Vector2 middle = size/2;
 
 
@@ -96,11 +98,23 @@ namespace SingleNeuronVisualisation.MVVM.View
             (line.X2, line.Y2) = middle + new Vector2(Math.Cos(angle * Math.PI), Math.Sin(-angle * Math.PI))*1000;
             PointsDisplay.Children.Add(line);
 
+            foreach(var position in selectedDataset.GetPoints())
+            {
+                Ellipse point = new();
+                point.Fill = Brushes.Black;
+                (point.Width, point.Height) = (10, 10);
+                point.VerticalAlignment = VerticalAlignment.Bottom;
+                point.HorizontalAlignment = HorizontalAlignment.Left;
 
+                // Normalized position.
+                Vector2 nPosition = (position * 0.95 + 1) / 2;
+                int x = (int)(nPosition.X * size.X) - 5;
+                int y = (int)(nPosition.Y * size.Y) - 5;
 
-            //TODO: Usunąć to bo to tylko debug.
-            var data = MainWindow.data;
-            int i = 0;
+                point.Margin = new Thickness(x, 0, 0, y);
+
+                PointsDisplay.Children.Add(point);
+            }
         }
 
         public class PointsDataContext

@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:SingleNeuronVisualisation"
         mc:Ignorable="d"
         Title="Learning algorithm of a single perceptron neuron"
-        Height="675" Width="1200" Background="#FF708090">
+        Height="675" Width="1200" Background="#FF708090"
+        ResizeMode="NoResize">
     <Grid>
         <TabControl
             HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" Margin="5,0,5,5">

@@ -23,9 +23,25 @@ namespace SingleNeuronVisualisation.MVVM
     public partial class Charts : Page
     {
         public MLData ml { get; set; }
+        public static Charts instance { get; set; }
         public Charts()
         {
             InitializeComponent();
+            instance = this;
+        }
+
+        int DataPointsCount = 0;
+
+        public static void AddResultsWrapper(float train, float test) => instance.AddResults(train, test);
+
+        public void AddResults(float train, float test)
+        {
+            listTraining.AddLast(train);
+            listTesting.AddLast(test);
+            DataPointsCount++;
+
+            Line_train.Points.Add(new Point(DataPointsCount*10, train * Viewport.ActualHeight));
+            Line_test.Points.Add(new Point(DataPointsCount*10, test * Viewport.ActualHeight));
         }
 
         LinkedList<float> listTraining = new ();

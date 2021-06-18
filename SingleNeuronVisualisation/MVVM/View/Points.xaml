@@ -14,10 +14,22 @@
             <ColumnDefinition Width="250"/>
         </Grid.ColumnDefinitions>
 
-        <Canvas x:Name="PointsDisplay"
+        <Grid x:Name="PointsDisplay"
                 Grid.Column="0"
                 ClipToBounds="True">
-        </Canvas>
+            <!--<ListBox Name="Points">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Ellipse 
+                            Width="10" Height="10"
+                            Fill="Black"
+                            InkCanvas.
+                            />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>-->
+        </Grid>
+        
         <Grid x:Name="Crosshair"
               Grid.Column="0">
             <Line x:Name="VerticalLine"

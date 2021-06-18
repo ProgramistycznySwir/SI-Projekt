@@ -15,6 +15,16 @@ namespace Algorithm.Data
     {
         public double[] RawData { get; set; }
         public double[] PointsData => RawData[..^1];
+        /// <summary>
+        /// Generates points out of RawData.
+        /// </summary>
+        public Vector2[] GetPoints()
+        {
+            var result = new Vector2[(RawData.Length - 1) / 2];
+            for (int i = 0; i < result.Length; i++)
+                result[i] = new Vector2(RawData[2 * i], RawData[2 * i + 1]);
+            return result;
+        }
         public Vector2 this[int index]
         {
             get => new Vector2(RawData[2*index], RawData[2*index + 1]);
