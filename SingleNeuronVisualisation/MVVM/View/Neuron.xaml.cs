@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Algorithm;
 
 namespace SingleNeuronVisualisation.MVVM.View
 {
@@ -51,11 +52,17 @@ namespace SingleNeuronVisualisation.MVVM.View
                 inputNode.Height = 60;
                 inputNode.Margin = new Thickness(positions[i].X, positions[i].Y, 0, 0);
 
+                TextBox textBox = new();
+                textBox.Width = 39;
+                textBox.Height = 30;
+                textBox.Margin = new Thickness(positions[i].X + 60, positions[i].Y, 0, 0);
+                textBox.Text = MainWindow.network.WeightsIh[0,i].ToString();
                 //inputNode.HorizontalAlignment = HorizontalAlignment.Center;
                 //inputNode.VerticalAlignment = VerticalAlignment.Center;
-                //inputNode.Source = new BitmapImage(new Uri(@"\Images\Input.png"));
-               // inputNode.Source = new BitmapImage(new Uri(@"C:\USB SZTYK BEKAP 11-03-2021\Semestr4\Sztuczna Inteligencja\Projekt\SingleNeuronVisualisation\Images\Input.png"));
+                inputNode.Source = new BitmapImage(new Uri(@"\Images\Input.png"));
+                // inputNode.Source = new BitmapImage(new Uri(@"C:\USB SZTYK BEKAP 11-03-2021\Semestr4\Sztuczna Inteligencja\Projekt\SingleNeuronVisualisation\Images\Input.png"));
                 //inputNode.Fill = Brushes.Black;
+                MainCanvas.Children.Add(textBox);
                 MainCanvas.Children.Add(inputNode);
             }
             // Then nodes.
@@ -65,7 +72,6 @@ namespace SingleNeuronVisualisation.MVVM.View
                 Line inputNode = new();
                 inputNode.Width = 60;
                 inputNode.Height = 60;
-
 
                 MainCanvas.Children.Add(inputNode);
             }            

@@ -95,8 +95,6 @@ namespace SingleNeuronVisualisation
                 network.Train(data.Datasets_train[ii].PointsData, new double[] { data.Datasets_train[ii].Solution });
         }
 
-       
-
         private void btnAfter100steos_Click(object sender, RoutedEventArgs e)
         {
             for (int i = 100; i > 0; i--)
