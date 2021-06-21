@@ -8,6 +8,6 @@ For educational purpouses only.
 - Self implemented neural network (you can take a look into SingleNeuronVisualisation\Algorytm directory).
 
 ## Appearance:
-![](Demo\NeuronView.PNG)
-![](Demo\PointsView.PNG)
-![](Demo\ChartsView.PNG)
+![](Demo/NeuronView.PNG)
+![](Demo/PointsView.PNG)
+![](Demo/ChartsView.PNG)
